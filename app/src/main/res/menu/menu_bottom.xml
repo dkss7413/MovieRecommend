@@ -7,9 +7,14 @@
         android:title="HOME"
         />
     <item
+        android:id="@+id/menu_search"
+        android:icon="@drawable/icon_search"
+        android:title="SEARCH"
+        />
+    <item
         android:id="@+id/menu_community"
         android:icon="@drawable/icon_community"
-        android:title="COMMNUNITY"
+        android:title="COMMUNITY"
         />
     <item
         android:id="@+id/menu_mypge"

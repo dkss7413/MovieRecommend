@@ -1,10 +1,11 @@
-package com.example.movierecommender
+package com.example.movierecommender.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.movierecommender.R
 
 class CommunityFragment:Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +17,6 @@ class CommunityFragment:Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_community, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_community, container, false)
     }
 }
