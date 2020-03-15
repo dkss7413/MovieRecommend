@@ -1,4 +1,4 @@
-package com.example.movierecommender.fragments
+package com.example.movierecommender.view.main.fragments.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,12 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movierecommender.BuildConfig
 import com.example.movierecommender.R
 import com.example.movierecommender.RetrofitService
 import com.example.movierecommender.adapters.SearchListAdapter
 import com.example.movierecommender.models.MovieModel
+import com.example.movierecommender.view.main.MainContract
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,8 +21,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class SearchFragment :Fragment(){
+class SearchFragment :Fragment(), SearchContract.View{
     var searchList:MovieModel? = null
+    lateinit var root: View
     lateinit var searchListAdapter: SearchListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,11 +35,22 @@ class SearchFragment :Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_search, container, false)
+        root = inflater.inflate(R.layout.fragment_search, container, false)
 
-        view.searchView.setSearchListAdapter(searchList)
+        root.searchView.setSearchListAdapter(searchList)
 
-        view.searchText.setOnEditorActionListener{v, actionId, event ->
+        val presenter = SearchPresenter().apply {
+            this.view = this@SearchFragment
+        }
+
+        presenter.setSearchList()
+
+        return root
+    }
+
+
+    override fun searchEnterButton(){
+        root.searchText.setOnEditorActionListener{v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH){
                 val retrofit = Retrofit.Builder().apply {
                     baseUrl(RetrofitService.URL)
@@ -48,7 +61,7 @@ class SearchFragment :Fragment(){
                 retrofitService.getMovie(v.text.toString()).enqueue(object : Callback<MovieModel>{
                     override fun onResponse(call: Call<MovieModel>, response: Response<MovieModel>) {
                         searchList = response.body()
-                        view.searchView.setSearchListAdapter(searchList)
+                        root.searchView.setSearchListAdapter(searchList)
                     }
 
                     override fun onFailure(call: Call<MovieModel>, t: Throwable) {
@@ -59,12 +72,12 @@ class SearchFragment :Fragment(){
                 false
             }
         }
+    }
 
-        view.searchButton.setOnClickListener{
-            view.searchText.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
+    override fun setSearchButton(){
+        root.searchButton.setOnClickListener{
+            root.searchText.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
         }
-
-        return view
     }
 
     fun RecyclerView.setSearchListAdapter(list: MovieModel?){

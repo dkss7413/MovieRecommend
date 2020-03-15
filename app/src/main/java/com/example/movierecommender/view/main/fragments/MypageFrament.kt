@@ -1,4 +1,4 @@
-package com.example.movierecommender.fragments
+package com.example.movierecommender.view.main.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.movierecommender.R
 
-class HomeFragment: Fragment(){
+class MypageFrament:Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -17,6 +17,6 @@ class HomeFragment: Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_mypage, container, false)
     }
 }
