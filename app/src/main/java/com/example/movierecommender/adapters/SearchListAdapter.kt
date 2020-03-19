@@ -2,29 +2,25 @@ package com.example.movierecommender.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movierecommender.R
-import com.example.movierecommender.models.MovieModel
-import com.example.movierecommender.models.MovieModelItem
+import com.example.movierecommender.models.NaverMovie
+import com.example.movierecommender.models.NaverMovieItem
 import kotlinx.android.synthetic.main.search_item.view.*
 
-class SearchListAdapter(val context: Context?, val searchList: MovieModel?) :
+class SearchListAdapter(val searchList: NaverMovie?) :
     RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.search_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.search_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -41,7 +37,7 @@ class SearchListAdapter(val context: Context?, val searchList: MovieModel?) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: MovieModelItem?) {
+        fun bind(item: NaverMovieItem?) {
             with(itemView) {
                 textTitle.text = item?.title?.htmlToString()
                 textSubTitle.text = item?.subtitle?.htmlToString()
@@ -58,7 +54,7 @@ class SearchListAdapter(val context: Context?, val searchList: MovieModel?) :
             }
         }
 
-        fun clickListener(item: MovieModelItem?){
+        fun clickListener(item: NaverMovieItem?){
             itemView.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item?.link))
                 startActivity(it.context, intent, null)

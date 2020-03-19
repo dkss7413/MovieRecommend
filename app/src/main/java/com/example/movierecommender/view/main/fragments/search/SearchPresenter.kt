@@ -1,10 +1,20 @@
 package com.example.movierecommender.view.main.fragments.search
 
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.movierecommender.network.NaverAPI
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+
 class SearchPresenter : SearchContract.Presenter{
     lateinit var view: SearchContract.View
+    lateinit var searchView: RecyclerView
 
-    override fun setSearchList() {
-        view.searchEnterButton()
-        view.setSearchButton()
+    override fun setEnterButton(textView: TextView, searchText: String) {
+        NaverAPI.create().getMovie(searchText)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({searchList -> view.setSearchListAdapter(searchView, searchList)},
+                {})
     }
 }

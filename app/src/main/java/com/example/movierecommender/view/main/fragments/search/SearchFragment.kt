@@ -11,15 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movierecommender.network.NaverAPI
 import com.example.movierecommender.R
 import com.example.movierecommender.adapters.SearchListAdapter
-import com.example.movierecommender.models.MovieModel
+import com.example.movierecommender.models.NaverMovie
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_search.view.*
+import kotlinx.android.synthetic.main.search_item.view.*
 
 class SearchFragment : Fragment(), SearchContract.View {
     lateinit var root: View
     lateinit var searchListAdapter: SearchListAdapter
-    lateinit var emptyList: MovieModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,41 +32,32 @@ class SearchFragment : Fragment(), SearchContract.View {
     ): View? {
         root = inflater.inflate(R.layout.fragment_search, container, false)
 
-        root.searchView.setSearchListAdapter(null)
+        setSearchListAdapter(root.searchView, null)
 
         val presenter = SearchPresenter().apply {
             this.view = this@SearchFragment
+            this.searchView = root.searchView
         }
 
-        presenter.setSearchList()
-
-        return root
-    }
-
-
-    override fun searchEnterButton() {
         root.searchText.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                var disposal = NaverAPI.create().getMovie(v.text.toString())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe{searchList -> root.searchView.setSearchListAdapter(searchList)}
-            true
+                presenter.setEnterButton(v, root.searchText.text.toString())
+                true
             } else {
                 false
             }
         }
-    }
 
-    override fun setSearchButton() {
         root.searchButton.setOnClickListener {
             root.searchText.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
         }
+
+        return root
     }
 
-    fun RecyclerView.setSearchListAdapter(list: MovieModel?) {
-        searchListAdapter = SearchListAdapter(context, list)
-        this.adapter = searchListAdapter
-        this.layoutManager = LinearLayoutManager(activity)
+    override fun setSearchListAdapter(view: RecyclerView, list: NaverMovie?) {
+        searchListAdapter = SearchListAdapter(list)
+        view.adapter = searchListAdapter
+        view.layoutManager = LinearLayoutManager(activity)
     }
 }

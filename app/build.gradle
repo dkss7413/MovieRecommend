@@ -18,8 +18,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         buildConfigField("String", "X_Naver_Client_Id", properties['X_Naver_Client_Id'])
         buildConfigField("String", "X_Naver_Client_Secret", properties['X_Naver_Client_Secret'])
+        buildConfigField("String", "Box_Office_Key", properties['Box_Office_Key'])
     }
     buildTypes {
         release {

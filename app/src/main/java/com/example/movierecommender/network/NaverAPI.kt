@@ -2,7 +2,7 @@ package com.example.movierecommender.network
 
 import android.util.Log
 import com.example.movierecommender.BuildConfig
-import com.example.movierecommender.models.MovieModel
+import com.example.movierecommender.models.NaverMovie
 import io.reactivex.Single
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -18,10 +18,10 @@ interface NaverAPI {
         val BASE_URL = "https://openapi.naver.com/v1/search/"
 
         fun create(): NaverAPI {
-            val httpLogginInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger {
-                Log.d("통신 로그", it)
+            val httpLoggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger {
+                Log.d("네이버 통신 로그", it)
             })
-            httpLogginInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             val headerInterceptor = Interceptor {
                 val request = it.request()
@@ -37,7 +37,7 @@ interface NaverAPI {
             }
 
             val client = OkHttpClient.Builder()
-                .addInterceptor(httpLogginInterceptor)
+                .addInterceptor(httpLoggingInterceptor)
                 .addInterceptor(headerInterceptor)
                 .build()
 
@@ -54,5 +54,5 @@ interface NaverAPI {
     @GET("movie.json")
     fun getMovie(
         @Query("query") title:String
-    ): Single<MovieModel>
+    ): Single<NaverMovie>
 }

@@ -1,13 +1,15 @@
 package com.example.movierecommender.view.main.fragments.search
 
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.movierecommender.models.NaverMovie
+
 interface SearchContract {
     interface View{
-        fun searchEnterButton()
-
-        fun setSearchButton()
+        fun setSearchListAdapter(view: RecyclerView, list: NaverMovie?)
     }
 
     interface Presenter{
-        fun setSearchList()
+        fun setEnterButton(textView: TextView, searchText: String)
     }
 }
