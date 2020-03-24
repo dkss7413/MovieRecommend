@@ -2,6 +2,7 @@ package com.example.movierecommender.network
 
 import android.util.Log
 import com.google.gson.JsonObject
+import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -39,8 +40,8 @@ interface BoxOfficeAPI {
     }
 
     @GET("searchDailyBoxOfficeList.json")
-    fun getMovie(
+    fun getBoxOffice(
         @Query("key") key:String,
         @Query("targetDt") date:Int
-    ) : Single<JsonObject>
+    ) : Observable<JsonObject>
 }

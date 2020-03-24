@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.movierecommender.R
 import com.example.movierecommender.view.main.fragments.CommunityFragment
-import com.example.movierecommender.view.main.fragments.HomeFragment
+import com.example.movierecommender.view.main.fragments.home.HomeFragment
 import com.example.movierecommender.view.main.fragments.MypageFrament
 import com.example.movierecommender.view.main.fragments.search.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        homeFragment = HomeFragment()
+        homeFragment =
+            HomeFragment()
         communityFragment = CommunityFragment()
         mypageFrament = MypageFrament()
         searchFragment =

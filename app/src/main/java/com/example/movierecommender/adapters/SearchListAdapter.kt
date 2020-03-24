@@ -16,7 +16,7 @@ import com.example.movierecommender.models.NaverMovie
 import com.example.movierecommender.models.NaverMovieItem
 import kotlinx.android.synthetic.main.search_item.view.*
 
-class SearchListAdapter(val searchList: NaverMovie?) :
+class SearchListAdapter(val searchMovieList: NaverMovie?) :
     RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,11 +25,11 @@ class SearchListAdapter(val searchList: NaverMovie?) :
     }
 
     override fun getItemCount(): Int {
-        return searchList?.items?.size ?: 0
+        return searchMovieList?.items?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(searchList?.items?.get(position)) {
+        with(searchMovieList?.items?.get(position)) {
             holder.bind(this)
             holder.clickListener(this)
         }

@@ -1,5 +1,6 @@
 package com.example.movierecommender.view.main.fragments.search
 
+import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movierecommender.network.NaverAPI
