@@ -1,6 +1,8 @@
 package com.example.movierecommender.view.main.fragments.home
 
+import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.movierecommender.BuildConfig
 import com.example.movierecommender.adapters.HomeListAdapter
 import com.example.movierecommender.models.NaverMovieItem
@@ -15,12 +17,16 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class HomePresenter : HomeContract.Presenter {
     lateinit var view: HomeContract.View
-    var adapterMovieList: ArrayList<NaverMovieItem>? = null
+    lateinit var recyclerView: RecyclerView
 
     override fun loadMovieRanking() {
+        val movieList: HashMap<Int, NaverMovieItem> = HashMap()
+        var num = -1
+
         val dispose =
             BoxOfficeAPI.create().getBoxOffice(BuildConfig.Box_Office_Key, getCurrentTime() - 1)
                 .map { it.getSeveralMovieName() }
@@ -29,14 +35,17 @@ class HomePresenter : HomeContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    NaverAPI.create().getMovie(it)
+                    num++
+                    val tempNum = num
+
+                    NaverAPI.create().getMovie(it, 1)
                         .map { it.items.get(0) }
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
-                            adapterMovieList?.add(it)
-                            if (adapterMovieList?.size == 9) {
-                                view.setHomeListAdapter()
+                            movieList[tempNum] = it
+                            if (movieList.size == 9) {
+                                view.setHomeListAdapter(recyclerView, movieList)
                             }
                         }, {})
                 }, {}, {})

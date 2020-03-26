@@ -8,14 +8,10 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movierecommender.network.NaverAPI
 import com.example.movierecommender.R
 import com.example.movierecommender.adapters.SearchListAdapter
 import com.example.movierecommender.models.NaverMovie
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_search.view.*
-import kotlinx.android.synthetic.main.search_item.view.*
 
 class SearchFragment : Fragment(), SearchContract.View {
     lateinit var root: View
@@ -32,11 +28,11 @@ class SearchFragment : Fragment(), SearchContract.View {
     ): View? {
         root = inflater.inflate(R.layout.fragment_search, container, false)
 
-        setSearchListAdapter(root.searchView, null)
+        setSearchListAdapter(root.searchRecyclerView, null)
 
         val presenter = SearchPresenter().apply {
             this.view = this@SearchFragment
-            this.searchView = root.searchView
+            this.recyclerView = root.searchRecyclerView
         }
 
         root.searchText.setOnEditorActionListener { v, actionId, event ->

@@ -9,13 +9,13 @@ import io.reactivex.schedulers.Schedulers
 
 class SearchPresenter : SearchContract.Presenter{
     lateinit var view: SearchContract.View
-    lateinit var searchView: RecyclerView
+    lateinit var recyclerView: RecyclerView
 
     override fun setEnterButton(textView: TextView, searchText: String) {
-        NaverAPI.create().getMovie(searchText)
+        NaverAPI.create().getMovie(searchText, 10)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({searchList -> view.setSearchListAdapter(searchView, searchList)},
+            .subscribe({searchList -> view.setSearchListAdapter(recyclerView, searchList)},
                 {})
     }
 }

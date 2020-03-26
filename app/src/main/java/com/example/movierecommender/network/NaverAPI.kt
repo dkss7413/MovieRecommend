@@ -54,6 +54,7 @@ interface NaverAPI {
 
     @GET("movie.json")
     fun getMovie(
-        @Query("query") title:String
+        @Query("query") title:String,
+        @Query("display") display:Int
     ): Single<NaverMovie>
 }
