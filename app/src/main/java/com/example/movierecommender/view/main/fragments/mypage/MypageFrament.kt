@@ -1,4 +1,4 @@
-package com.example.movierecommender.view.main.fragments
+package com.example.movierecommender.view.main.fragments.mypage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.movierecommender.R
 
-class CommunityFragment:Fragment(){
+class MypageFrament:Fragment(){
+    companion object{
+        fun newInstance(): MypageFrament{
+            return MypageFrament()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -17,6 +23,6 @@ class CommunityFragment:Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_community, container, false)
+        return inflater.inflate(R.layout.fragment_mypage, container, false)
     }
 }

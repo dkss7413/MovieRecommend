@@ -17,6 +17,12 @@ import kotlin.collections.ArrayList
 class HomeFragment : Fragment(), HomeContract.View {
     lateinit var root:View
 
+    companion object{
+        fun newInstance(): HomeFragment{
+            return HomeFragment()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

@@ -1,6 +1,7 @@
 package com.example.movierecommender.view.main.fragments.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,12 @@ class SearchFragment : Fragment(), SearchContract.View {
     lateinit var root: View
     lateinit var searchListAdapter: SearchListAdapter
 
+    companion object{
+        fun newInstance(): SearchFragment{
+            return SearchFragment()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -29,6 +36,7 @@ class SearchFragment : Fragment(), SearchContract.View {
         root = inflater.inflate(R.layout.fragment_search, container, false)
 
         setSearchListAdapter(root.searchRecyclerView, null)
+
 
         val presenter = SearchPresenter().apply {
             this.view = this@SearchFragment
