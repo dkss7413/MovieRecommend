@@ -22,6 +22,7 @@ class HomeListAdapter(val root:View, val homeMovieList: HashMap<Int, NaverMovieI
     }
 
     override fun getItemCount(): Int {
+        if(homeMovieList == null) return 0
         return 9
     }
 

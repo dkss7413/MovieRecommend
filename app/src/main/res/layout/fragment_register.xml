@@ -6,64 +6,89 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="회원가입"
+        app:titleTextColor="#000000" />
+
     <EditText
-        android:id="@+id/idText"
+        android:id="@+id/reg_idText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:ems="10"
         android:hint="아이디"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@id/registerPwText"
+        app:layout_constraintBottom_toTopOf="@id/reg_passwordText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
-        android:id="@+id/registerPwText"
+        android:id="@+id/reg_passwordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="비밀번호"
-        app:layout_constraintBottom_toTopOf="@id/registerPwText2"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@id/reg_passwordText2"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
-        android:id="@+id/registerPwText2"
+        android:id="@+id/reg_passwordText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="비밀번호 확인"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@id/reg_nicknameText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/reg_nicknameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="닉네임"
         android:inputType="textPersonName"
+        app:layout_constraintVertical_bias="0.55"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/registerButton2"
+        android:id="@+id/reg_registerButton"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:background="@color/colorPrimary"
         android:text="회원가입"
+        android:textColor="#FFFFFF"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/cancelButton"
-        app:layout_constraintTop_toBottomOf="@id/registerPwText2" />
+        app:layout_constraintRight_toLeftOf="@id/reg_cancelButton"
+        app:layout_constraintTop_toBottomOf="@id/reg_nicknameText" />
 
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/reg_cancelButton"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
         android:text="취소"
-        app:layout_constraintLeft_toRightOf="@id/registerButton2"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toRightOf="@id/reg_registerButton"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registerPwText2" />
+        app:layout_constraintTop_toBottomOf="@id/reg_nicknameText" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

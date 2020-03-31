@@ -30,11 +30,11 @@ class LoginFragment :Fragment(){
         val root = inflater.inflate(R.layout.fragment_login, container, false)
         registerFragment = RegisterFragment()
 
-        root.loginButton.setOnClickListener {
+        root.log_loginButton.setOnClickListener {
 
         }
 
-        root.registerButton.setOnClickListener {
+        root.log_registerButton.setOnClickListener {
             registerFragment.replaceFragment(activity)
         }
 

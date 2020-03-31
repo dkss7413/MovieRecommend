@@ -17,7 +17,7 @@ import retrofit2.http.Query
 
 interface BoxOfficeAPI {
     companion object{
-        val BASE_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/"
+        val BASE_URL = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/"
 
         fun create(): BoxOfficeAPI{
             val httpLoggingInterceptor = HttpLoggingInterceptor (HttpLoggingInterceptor.Logger {
@@ -26,7 +26,7 @@ interface BoxOfficeAPI {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             val client = OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
+//                .addInterceptor(httpLoggingInterceptor)
                 .build()
 
             return Retrofit.Builder()
