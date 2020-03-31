@@ -25,6 +25,7 @@
         android:ems="10"
         android:hint="아이디"
         android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
         app:layout_constraintBottom_toTopOf="@id/log_passwordText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -36,6 +37,7 @@
         android:ems="10"
         android:hint="비밀번호"
         android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

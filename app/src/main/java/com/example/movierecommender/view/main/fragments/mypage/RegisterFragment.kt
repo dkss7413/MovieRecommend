@@ -13,6 +13,7 @@ import com.example.movierecommender.network.Service
 import com.example.movierecommender.view.main.replaceFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register.view.*
 
 class RegisterFragment : Fragment(){
@@ -30,38 +31,38 @@ class RegisterFragment : Fragment(){
         val root = inflater.inflate(R.layout.fragment_register, container, false)
 
         root.reg_registerButton.setOnClickListener {
-            val userId: String = root.reg_idText.text.toString()
+            val userId = root.reg_idText.text.toString()
             val userPassword = root.reg_passwordText.text.toString()
             val userPassword2 = root.reg_passwordText2.text.toString()
             val nickname = root.reg_nicknameText.text.toString()
 
-            if(userPassword == userPassword2) {
-                Service.create().register(userId, userPassword, nickname)
+            if(userId == "" || userPassword == "" || userPassword2 == "" || nickname == ""){
+                context?.showToast("입력 안된 사항이 있습니다.", Toast.LENGTH_SHORT)
+            }
+            else if(userPassword != userPassword2) {
+                context?.showToast("비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT)
+                reg_passwordText.requestFocus()
+            }
+            else{
+                Service.create().userRegister(userId.toString(), userPassword.toString(), nickname.toString())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         val result = it.get("result").asString
-                        if(result == "Id error!"){
-                            context?.showToast("존재하는 아이디입니다.", Toast.LENGTH_SHORT)
-                            root.reg_idText.text = null
-                        }
-                        if(result == "Nickname error!"){
-                            context?.showToast("존재하는 닉네임입니다.", Toast.LENGTH_SHORT)
-                            root.reg_nicknameText.text = null
-                        }
-                        if(result == "true"){
-                            context?.showToast("회원가입 성공", Toast.LENGTH_SHORT)
-                        }
-                    }, {
-                        Log.d("회원가입 오류", it.localizedMessage)
-                    })
-            }
-            else{
-                context?.showToast("비밀번호를 확인해주세요.", Toast.LENGTH_SHORT)
-                root.reg_passwordText.text = null
-                root.reg_passwordText2.text = null
-            }
 
+                        when(result){
+                            "Id error!" -> {
+                                context?.showToast("존재하는 아이디입니다.", Toast.LENGTH_SHORT)
+                                root.reg_idText.requestFocus()
+                            }
+                            "Nickname error!" -> {
+                                context?.showToast("존재하는 닉네임입니다.", Toast.LENGTH_SHORT)
+                                root.reg_nicknameText.requestFocus()
+                            }
+                            "true" -> context?.showToast("회원가입 성공", Toast.LENGTH_SHORT)
+                        }
+                    }, { Log.d("회원가입 오류", it.localizedMessage) })
+            }
         }
 
         root.reg_cancelButton.setOnClickListener {

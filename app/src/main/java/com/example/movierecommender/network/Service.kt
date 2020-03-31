@@ -39,9 +39,15 @@ interface Service {
 
     @FormUrlEncoded
     @POST("user_register.php")
-    fun register(
+    fun userRegister(
         @Field("userId") userId: String,
         @Field("userPassword") userPassword: String,
         @Field("nickname") nickName: String
+    ): Single<JsonObject>
+
+    @GET("user_login.php")
+    fun userLogin(
+        @Query("userId") userId: String,
+        @Query("userPassword") userPassword: String
     ): Single<JsonObject>
 }
