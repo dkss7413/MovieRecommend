@@ -48,9 +48,8 @@ class RegisterFragment : Fragment(){
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        val result = it.get("result").asString
 
-                        when(result){
+                        when(it.get("result").asString){
                             "Id error!" -> {
                                 context?.showToast("존재하는 아이디입니다.", Toast.LENGTH_SHORT)
                                 root.reg_idText.requestFocus()
@@ -61,6 +60,7 @@ class RegisterFragment : Fragment(){
                             }
                             "true" -> context?.showToast("회원가입 성공", Toast.LENGTH_SHORT)
                         }
+
                     }, { Log.d("회원가입 오류", it.localizedMessage) })
             }
         }
