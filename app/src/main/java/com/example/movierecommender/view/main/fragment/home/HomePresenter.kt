@@ -1,19 +1,14 @@
-package com.example.movierecommender.view.main.fragments.home
+package com.example.movierecommender.view.main.fragment.home
 
-import android.util.Log
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movierecommender.BuildConfig
-import com.example.movierecommender.adapters.HomeListAdapter
-import com.example.movierecommender.models.NaverMovieItem
+import com.example.movierecommender.model.NaverMovieItem
 import com.example.movierecommender.network.BoxOfficeAPI
 import com.example.movierecommender.network.NaverAPI
 import com.google.gson.JsonObject
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -21,7 +16,6 @@ import kotlin.collections.HashMap
 
 class HomePresenter : HomeContract.Presenter {
     lateinit var view: HomeContract.View
-    lateinit var recyclerView: RecyclerView
 
     override fun loadMovieRanking() {
         val movieList: HashMap<Int, NaverMovieItem> = HashMap()
@@ -45,7 +39,7 @@ class HomePresenter : HomeContract.Presenter {
                         .subscribe({
                             movieList[tempNum] = it
                             if (movieList.size == 9) {
-                                view.setHomeListAdapter(recyclerView, movieList)
+                                view.setHomeListAdapter(movieList)
                             }
                         }, {})
                 }, {}, {})

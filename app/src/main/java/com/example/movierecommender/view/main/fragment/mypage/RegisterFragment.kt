@@ -1,6 +1,5 @@
-package com.example.movierecommender.view.main.fragments.mypage
+package com.example.movierecommender.view.main.fragment.mypage
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.movierecommender.R
 import com.example.movierecommender.network.Service
-import com.example.movierecommender.view.main.replaceFragment
+import com.example.movierecommender.util.SaveSharedPreference
+import com.example.movierecommender.util.replaceFragment
+import com.example.movierecommender.util.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -58,7 +59,12 @@ class RegisterFragment : Fragment(){
                                 context?.showToast("존재하는 닉네임입니다.", Toast.LENGTH_SHORT)
                                 root.reg_nicknameText.requestFocus()
                             }
-                            "true" -> context?.showToast("회원가입 성공", Toast.LENGTH_SHORT)
+                            "true" -> {
+                                context?.showToast("회원가입 성공", Toast.LENGTH_SHORT)
+
+                                SaveSharedPreference.setUserName(context, userId)
+                                MypageFrament.newInstance().replaceFragment(activity)
+                            }
                         }
 
                     }, { Log.d("회원가입 오류", it.localizedMessage) })
@@ -71,8 +77,4 @@ class RegisterFragment : Fragment(){
 
         return root
     }
-}
-
-fun Context.showToast(text: String, duration: Int){
-    Toast.makeText(this, text, duration).show()
 }

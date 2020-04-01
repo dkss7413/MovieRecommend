@@ -1,7 +1,6 @@
-package com.example.movierecommender.view.main.fragments.search
+package com.example.movierecommender.view.main.fragment.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movierecommender.R
-import com.example.movierecommender.adapters.SearchListAdapter
-import com.example.movierecommender.models.NaverMovie
+import com.example.movierecommender.adapter.SearchListAdapter
+import com.example.movierecommender.model.NaverMovie
 import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class SearchFragment : Fragment(), SearchContract.View {
@@ -35,12 +34,10 @@ class SearchFragment : Fragment(), SearchContract.View {
     ): View? {
         root = inflater.inflate(R.layout.fragment_search, container, false)
 
-        setSearchListAdapter(root.searchRecyclerView, null)
-
+        setSearchListAdapter(null)
 
         val presenter = SearchPresenter().apply {
             this.view = this@SearchFragment
-            this.recyclerView = root.searchRecyclerView
         }
 
         root.searchText.setOnEditorActionListener { v, actionId, event ->
@@ -59,9 +56,9 @@ class SearchFragment : Fragment(), SearchContract.View {
         return root
     }
 
-    override fun setSearchListAdapter(view: RecyclerView, list: NaverMovie?) {
+    override fun setSearchListAdapter(list: NaverMovie?) {
         searchListAdapter = SearchListAdapter(list)
-        view.adapter = searchListAdapter
-        view.layoutManager = LinearLayoutManager(activity)
+        root.searchRecyclerView.adapter = searchListAdapter
+        root.searchRecyclerView.layoutManager = LinearLayoutManager(activity)
     }
 }

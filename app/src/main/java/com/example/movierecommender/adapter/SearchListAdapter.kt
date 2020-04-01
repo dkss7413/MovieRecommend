@@ -1,6 +1,5 @@
-package com.example.movierecommender.adapters
+package com.example.movierecommender.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -12,8 +11,8 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movierecommender.R
-import com.example.movierecommender.models.NaverMovie
-import com.example.movierecommender.models.NaverMovieItem
+import com.example.movierecommender.model.NaverMovie
+import com.example.movierecommender.model.NaverMovieItem
 import kotlinx.android.synthetic.main.search_item.view.*
 
 class SearchListAdapter(val searchMovieList: NaverMovie?) :

@@ -1,4 +1,4 @@
-package com.example.movierecommender.view.main.fragments.home
+package com.example.movierecommender.view.main.fragment.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movierecommender.R
-import com.example.movierecommender.adapters.HomeListAdapter
-import com.example.movierecommender.models.NaverMovieItem
+import com.example.movierecommender.adapter.HomeListAdapter
+import com.example.movierecommender.model.NaverMovieItem
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment(), HomeContract.View {
@@ -34,11 +33,10 @@ class HomeFragment : Fragment(), HomeContract.View {
     ): View? {
         root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        setHomeListAdapter(root.homeRecyclerView, null)
+        setHomeListAdapter(null)
 
         val presenter = HomePresenter().apply {
             view = this@HomeFragment
-            recyclerView = root.homeRecyclerView
         }
 
         presenter.loadMovieRanking()
@@ -46,9 +44,9 @@ class HomeFragment : Fragment(), HomeContract.View {
         return root
     }
 
-    override fun setHomeListAdapter(view: RecyclerView, list: HashMap<Int, NaverMovieItem>?) {
-        val homeListAdapter = HomeListAdapter(view, list)
-        view.homeRecyclerView.adapter = homeListAdapter
-        view.homeRecyclerView.layoutManager = GridLayoutManager(context, 3)
+    override fun setHomeListAdapter(list: HashMap<Int, NaverMovieItem>?) {
+        val homeListAdapter = HomeListAdapter(root.homeRecyclerView, list)
+        root.homeRecyclerView.adapter = homeListAdapter
+        root.homeRecyclerView.layoutManager = GridLayoutManager(context, 3)
     }
 }

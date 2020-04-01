@@ -1,4 +1,4 @@
-package com.example.movierecommender.view.main.fragments.mypage
+package com.example.movierecommender.view.main.fragment.mypage
 
 import android.os.Bundle
 import android.util.Log
@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.movierecommender.R
 import com.example.movierecommender.network.Service
-import com.example.movierecommender.view.main.MainActivity
-import com.example.movierecommender.view.main.replaceFragment
+import com.example.movierecommender.util.SaveSharedPreference
+import com.example.movierecommender.util.replaceFragment
+import com.example.movierecommender.util.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_login.view.*
@@ -46,7 +46,8 @@ class LoginFragment :Fragment(){
 
                     when(it.get("result").asString){
                         "true" -> {
-                            context?.showToast("로그인 성공", Toast.LENGTH_SHORT)
+                            SaveSharedPreference.setUserName(context, userId)
+                            MypageFrament.newInstance().replaceFragment(activity)
                         }
                         "false" -> context?.showToast("아이디와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT)
                     }

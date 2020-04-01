@@ -1,4 +1,4 @@
-package com.example.movierecommender.models
+package com.example.movierecommender.model
 
 class NaverMovieItem(
     var title: String,

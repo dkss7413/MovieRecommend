@@ -1,4 +1,4 @@
-package com.example.movierecommender.models
+package com.example.movierecommender.model
 
 class NaverMovie(
     var total: Int,

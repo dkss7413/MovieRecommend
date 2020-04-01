@@ -2,8 +2,7 @@ package com.example.movierecommender.network
 
 import android.util.Log
 import com.example.movierecommender.BuildConfig
-import com.example.movierecommender.models.NaverMovie
-import io.reactivex.Observable
+import com.example.movierecommender.model.NaverMovie
 import io.reactivex.Single
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

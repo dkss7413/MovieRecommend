@@ -1,4 +1,4 @@
-package com.example.movierecommender.adapters
+package com.example.movierecommender.adapter
 
 import android.content.Intent
 import android.net.Uri
@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movierecommender.R
-import com.example.movierecommender.models.NaverMovieItem
+import com.example.movierecommender.model.NaverMovieItem
 import kotlinx.android.synthetic.main.home_item.view.*
 
 class HomeListAdapter(val root:View, val homeMovieList: HashMap<Int, NaverMovieItem>?): RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {

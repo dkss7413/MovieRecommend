@@ -1,4 +1,4 @@
-package com.example.movierecommender.view.main.fragments.community
+package com.example.movierecommender.view.main.fragment.community
 
 import android.os.Bundle
 import android.view.LayoutInflater
