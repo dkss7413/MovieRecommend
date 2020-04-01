@@ -46,7 +46,7 @@ class LoginFragment :Fragment(){
 
                     when(it.get("result").asString){
                         "true" -> {
-                            SaveSharedPreference.setUserName(context, userId)
+                            SaveSharedPreference.setUser(context, it.get("userId").asString, it.get("nickname").asString)
                             MypageFrament.newInstance().replaceFragment(activity)
                         }
                         "false" -> context?.showToast("아이디와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT)

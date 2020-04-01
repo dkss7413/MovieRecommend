@@ -6,23 +6,30 @@ import android.preference.PreferenceManager
 
 class SaveSharedPreference {
     companion object{
-        var PREF_USER_NAME = "username"
+
+        var PREF_USER_ID = ""
+        var PREF_NICKNAME =  ""
 
         private fun getSharedPreferences(context: Context?): SharedPreferences{
             return androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
         }
 
-        fun setUserName(context: Context?, userName: String){
+        fun setUser(context: Context?, userId: String, nickname: String){
             val editor = getSharedPreferences(context).edit()
-            editor.putString(PREF_USER_NAME, userName)
+            editor.putString(PREF_USER_ID, userId)
+            editor.putString(PREF_NICKNAME, nickname)
             editor.commit()
         }
 
-        fun getUserName(context: Context?): String?{
-            return getSharedPreferences(context).getString(PREF_USER_NAME, "")
+        fun getUserId(context: Context?): String?{
+            return getSharedPreferences(context).getString(PREF_USER_ID, "")
         }
 
-        fun clearUserName(context: Context?){
+        fun getNickname(context: Context?): String?{
+            return getSharedPreferences(context).getString(PREF_NICKNAME, "")
+        }
+
+        fun clearUser(context: Context?){
             val editor = getSharedPreferences(context).edit()
             editor.clear()
             editor.commit()

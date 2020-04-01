@@ -45,7 +45,7 @@ class RegisterFragment : Fragment(){
                 reg_passwordText.requestFocus()
             }
             else{
-                Service.create().userRegister(userId.toString(), userPassword.toString(), nickname.toString())
+                Service.create().userRegister(userId, userPassword, nickname)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
@@ -62,7 +62,7 @@ class RegisterFragment : Fragment(){
                             "true" -> {
                                 context?.showToast("회원가입 성공", Toast.LENGTH_SHORT)
 
-                                SaveSharedPreference.setUserName(context, userId)
+                                SaveSharedPreference.setUser(context, userId, nickname)
                                 MypageFrament.newInstance().replaceFragment(activity)
                             }
                         }

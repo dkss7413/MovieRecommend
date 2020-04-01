@@ -1,5 +1,6 @@
 package com.example.movierecommender.view.main.fragment.mypage
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,12 +18,16 @@ class MypageFrament:Fragment(){
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
-        if(SaveSharedPreference.getUserName(context)?.length == 0) {
+        if(SaveSharedPreference.getUserId(context)?.length == 0) {
             LoginFragment.newInstance().replaceFragment(activity)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -33,7 +38,7 @@ class MypageFrament:Fragment(){
         val root = inflater.inflate(R.layout.fragment_mypage, container, false)
 
         root.logoutButton.setOnClickListener {
-            SaveSharedPreference.clearUserName(context)
+            SaveSharedPreference.clearUser(context)
             newInstance().replaceFragment(activity)
         }
 
