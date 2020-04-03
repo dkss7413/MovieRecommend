@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/menu_home"
-        android:icon="@drawable/icon_home"
+        android:icon="@drawable/ic_home"
         android:title="HOME"
         />
     <item
         android:id="@+id/menu_search"
-        android:icon="@drawable/icon_search"
+        android:icon="@drawable/ic_search"
         android:title="SEARCH"
         />
     <item
         android:id="@+id/menu_community"
-        android:icon="@drawable/icon_community"
+        android:icon="@drawable/ic_community"
         android:title="COMMUNITY"
         />
     <item
         android:id="@+id/menu_mypge"
-        android:icon="@drawable/icon_mypage"
+        android:icon="@drawable/ic_mypage"
         android:title="MYPAGE"
         />
 </menu>

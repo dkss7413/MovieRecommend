@@ -2,7 +2,6 @@ package com.example.movierecommender.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 
 class SaveSharedPreference {
     companion object{
