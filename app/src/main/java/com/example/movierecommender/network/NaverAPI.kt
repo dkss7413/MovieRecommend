@@ -2,7 +2,7 @@ package com.example.movierecommender.network
 
 import android.util.Log
 import com.example.movierecommender.BuildConfig
-import com.example.movierecommender.model.NaverMovie
+import com.example.movierecommender.model.MovieDTO
 import io.reactivex.Single
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -55,5 +55,5 @@ interface NaverAPI {
     fun getMovie(
         @Query("query") title:String,
         @Query("display") display:Int
-    ): Single<NaverMovie>
+    ): Single<MovieDTO>
 }

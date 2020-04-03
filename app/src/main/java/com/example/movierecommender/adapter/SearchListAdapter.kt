@@ -11,12 +11,11 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movierecommender.R
-import com.example.movierecommender.model.NaverMovie
-import com.example.movierecommender.model.NaverMovieItem
+import com.example.movierecommender.model.MovieDTO
+import com.example.movierecommender.model.MovieItemDTO
 import kotlinx.android.synthetic.main.search_item.view.*
 
-class SearchListAdapter(val searchMovieList: NaverMovie?) :
-    RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
+class SearchListAdapter(val searchMovieList: MovieDTO?): RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_item, parent, false)
@@ -36,14 +35,14 @@ class SearchListAdapter(val searchMovieList: NaverMovie?) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: NaverMovieItem?) {
+        fun bind(item: MovieItemDTO?) {
             with(itemView) {
                 textTitle.text = item?.title?.htmlToString()
                 textSubTitle.text = item?.subtitle?.htmlToString()
                 textPubDate.text = item?.pubDate?.htmlToString()
                 textDirector.text = item?.director?.htmlToString()
                 textActor.text = item?.actor?.htmlToString()
-                ratingBar.rating =
+                search_ratingBar.rating =
                     item?.userRating?.toDouble()?.div(2)?.toFloat() ?: 0.toFloat()
 
                 Glide.with(imageView.context)
@@ -53,9 +52,9 @@ class SearchListAdapter(val searchMovieList: NaverMovie?) :
             }
         }
 
-        fun clickListener(item: NaverMovieItem?){
+        fun clickListener(itemDTO: MovieItemDTO?){
             itemView.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item?.link))
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(itemDTO?.link))
                 startActivity(it.context, intent, null)
             }
         }

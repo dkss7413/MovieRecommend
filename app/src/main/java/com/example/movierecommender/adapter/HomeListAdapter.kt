@@ -9,10 +9,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movierecommender.R
-import com.example.movierecommender.model.NaverMovieItem
+import com.example.movierecommender.model.MovieItemDTO
 import kotlinx.android.synthetic.main.home_item.view.*
 
-class HomeListAdapter(val root:View, val homeMovieList: HashMap<Int, NaverMovieItem>?): RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
+class HomeListAdapter(val root:View, val homeMovieMap: HashMap<Int, MovieItemDTO>?): RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
     lateinit var parent: ViewGroup
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,14 +22,14 @@ class HomeListAdapter(val root:View, val homeMovieList: HashMap<Int, NaverMovieI
     }
 
     override fun getItemCount(): Int {
-        if(homeMovieList == null) return 0
+        if(homeMovieMap == null) return 0
         return 9
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.bind(homeMovieList?.get(position))
-        holder.clickListener(homeMovieList?.get(position))
+        holder.bind(homeMovieMap?.get(position))
+        holder.clickListener(homeMovieMap?.get(position))
 
         //랭킹 숫자
         holder.itemView.rankingNumber.text = position.plus(1).toString()
@@ -45,14 +45,14 @@ class HomeListAdapter(val root:View, val homeMovieList: HashMap<Int, NaverMovieI
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun bind(item: NaverMovieItem?){
+        fun bind(item: MovieItemDTO?){
             Glide.with(itemView.homeMovieView.context)
                 .load(item?.image)
                 .error(R.drawable.error_image)
                 .into(itemView.homeMovieView)
         }
 
-        fun clickListener(item: NaverMovieItem?){
+        fun clickListener(item: MovieItemDTO?){
             itemView.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item?.link))
                 ContextCompat.startActivity(it.context, intent, null)

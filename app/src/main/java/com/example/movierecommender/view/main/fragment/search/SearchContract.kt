@@ -1,12 +1,11 @@
 package com.example.movierecommender.view.main.fragment.search
 
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.example.movierecommender.model.NaverMovie
+import com.example.movierecommender.model.MovieDTO
 
 interface SearchContract {
     interface View{
-        fun setSearchListAdapter(list: NaverMovie?)
+        fun setSearchListAdapter(list: MovieDTO?)
     }
 
     interface Presenter{

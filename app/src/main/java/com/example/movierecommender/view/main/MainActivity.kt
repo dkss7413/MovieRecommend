@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        HomeFragment.newInstance().replaceFragment(this)
+
         bottom_navigation_view.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> HomeFragment.newInstance().replaceFragment(this)

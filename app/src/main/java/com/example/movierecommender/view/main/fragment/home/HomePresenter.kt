@@ -1,8 +1,7 @@
 package com.example.movierecommender.view.main.fragment.home
 
-import androidx.recyclerview.widget.RecyclerView
 import com.example.movierecommender.BuildConfig
-import com.example.movierecommender.model.NaverMovieItem
+import com.example.movierecommender.model.MovieItemDTO
 import com.example.movierecommender.network.BoxOfficeAPI
 import com.example.movierecommender.network.NaverAPI
 import com.google.gson.JsonObject
@@ -18,7 +17,7 @@ class HomePresenter : HomeContract.Presenter {
     lateinit var view: HomeContract.View
 
     override fun loadMovieRanking() {
-        val movieList: HashMap<Int, NaverMovieItem> = HashMap()
+        val movieListDTO: HashMap<Int, MovieItemDTO> = HashMap()
         var num = -1
 
         val dispose =
@@ -37,9 +36,9 @@ class HomePresenter : HomeContract.Presenter {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
-                            movieList[tempNum] = it
-                            if (movieList.size == 9) {
-                                view.setHomeListAdapter(movieList)
+                            movieListDTO[tempNum] = it
+                            if (movieListDTO.size == 9) {
+                                view.setHomeListAdapter(movieListDTO)
                             }
                         }, {})
                 }, {}, {})

@@ -1,11 +1,10 @@
 package com.example.movierecommender.view.main.fragment.home
 
-import androidx.recyclerview.widget.RecyclerView
-import com.example.movierecommender.model.NaverMovieItem
+import com.example.movierecommender.model.MovieItemDTO
 
 interface HomeContract {
     interface View{
-        fun setHomeListAdapter(list: HashMap<Int, NaverMovieItem>?)
+        fun setHomeListAdapter(list: HashMap<Int, MovieItemDTO>?)
     }
 
     interface Presenter{

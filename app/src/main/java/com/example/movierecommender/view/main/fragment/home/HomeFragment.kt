@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.movierecommender.R
 import com.example.movierecommender.adapter.HomeListAdapter
-import com.example.movierecommender.model.NaverMovieItem
+import com.example.movierecommender.model.MovieItemDTO
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -44,7 +43,7 @@ class HomeFragment : Fragment(), HomeContract.View {
         return root
     }
 
-    override fun setHomeListAdapter(list: HashMap<Int, NaverMovieItem>?) {
+    override fun setHomeListAdapter(list: HashMap<Int, MovieItemDTO>?) {
         val homeListAdapter = HomeListAdapter(root.homeRecyclerView, list)
         root.homeRecyclerView.adapter = homeListAdapter
         root.homeRecyclerView.layoutManager = GridLayoutManager(context, 3)

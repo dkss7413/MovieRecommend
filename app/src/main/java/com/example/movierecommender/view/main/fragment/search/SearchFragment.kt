@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.movierecommender.R
 import com.example.movierecommender.adapter.SearchListAdapter
-import com.example.movierecommender.model.NaverMovie
+import com.example.movierecommender.model.MovieDTO
 import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class SearchFragment : Fragment(), SearchContract.View {
@@ -56,7 +55,7 @@ class SearchFragment : Fragment(), SearchContract.View {
         return root
     }
 
-    override fun setSearchListAdapter(list: NaverMovie?) {
+    override fun setSearchListAdapter(list: MovieDTO?) {
         searchListAdapter = SearchListAdapter(list)
         root.searchRecyclerView.adapter = searchListAdapter
         root.searchRecyclerView.layoutManager = LinearLayoutManager(activity)

@@ -1,6 +1,6 @@
 package com.example.movierecommender.model
 
-class NaverMovieItem(
+class MovieItemDTO(
     var title: String,
     var link: String,
     var image: String,
