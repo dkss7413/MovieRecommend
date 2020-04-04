@@ -1,8 +1,10 @@
 package com.example.movierecommender.network
 
 import android.util.Log
+import com.example.movierecommender.model.BoardDTO
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -15,7 +17,7 @@ import retrofit2.http.*
 
 interface Service {
     companion object{
-        val BASE_URL = "http://dkss852.dothome.co.kr/movieRecommend/"
+        private val BASE_URL = "http://dkss852.dothome.co.kr/movieRecommend/"
 
         fun create(): Service{
             val httpLoggingInterceptor = HttpLoggingInterceptor (HttpLoggingInterceptor.Logger {
@@ -50,4 +52,14 @@ interface Service {
         @Query("userId") userId: String,
         @Query("userPassword") userPassword: String
     ): Single<JsonObject>
+
+    @FormUrlEncoded
+    @POST("board_register.php")
+    fun boardRegister(
+        @FieldMap data: Map<String, String?>
+    ): Single<JsonObject>
+
+     @GET("board_get.php")
+     fun boardGet(
+     ): Single<ArrayList<BoardDTO?>?>
 }

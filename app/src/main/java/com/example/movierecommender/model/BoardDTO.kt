@@ -1,8 +1,10 @@
 package com.example.movierecommender.model
 
 data class BoardDTO(
-    var title: String,
-    var status: String,
-    var userRating: String,
-    var contesnt: String
+    var boardId: String,
+    var userId: String,
+    var nickname: String,
+    var boardTitle: String,
+    var boardDate: String,
+    var boardContent: String
 )

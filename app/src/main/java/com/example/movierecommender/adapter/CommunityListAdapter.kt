@@ -8,7 +8,7 @@ import com.example.movierecommender.R
 import com.example.movierecommender.model.BoardDTO
 import kotlinx.android.synthetic.main.community_item.view.*
 
-class CommunityListAdapter(val boardList: ArrayList<BoardDTO>): RecyclerView.Adapter<CommunityListAdapter.ViewHolder>() {
+class CommunityListAdapter(val boardList: ArrayList<BoardDTO?>?): RecyclerView.Adapter<CommunityListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.community_item, parent, false)
@@ -16,20 +16,19 @@ class CommunityListAdapter(val boardList: ArrayList<BoardDTO>): RecyclerView.Ada
     }
 
     override fun getItemCount(): Int {
-        return boardList.size
+        return boardList?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(boardList.get(position))
+        holder.bind(boardList?.get(position))
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun bind(item: BoardDTO){
+        fun bind(item: BoardDTO?){
             with(itemView) {
-                titleText.text = item.title
-                statusText.text = item.status
-                community_ratingBar.rating = item.userRating.toDouble().div(2).toFloat()
-                contentText.text = item.contesnt
+                titleText.text = item?.boardTitle
+                statusText.text = item?.boardDate
+                contentText.text = item?.boardContent
             }
         }
     }

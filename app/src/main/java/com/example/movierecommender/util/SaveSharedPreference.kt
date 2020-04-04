@@ -6,8 +6,8 @@ import android.content.SharedPreferences
 class SaveSharedPreference {
     companion object{
 
-        var PREF_USER_ID = ""
-        var PREF_NICKNAME =  ""
+        private var PREF_USER_ID = ""
+        private var PREF_NICKNAME =  ""
 
         private fun getSharedPreferences(context: Context?): SharedPreferences{
             return androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
