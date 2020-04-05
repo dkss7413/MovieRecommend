@@ -27,8 +27,8 @@ class CommunityListAdapter(val boardList: ArrayList<BoardDTO?>?): RecyclerView.A
         fun bind(item: BoardDTO?){
             with(itemView) {
                 titleText.text = item?.boardTitle
-                statusText.text = item?.boardDate
-                contentText.text = item?.boardContent
+                statusText.text = "${item?.boardDate?.subSequence(0, 4)}.${item?.boardDate?.subSequence(4,6)}.${item?.boardDate?.subSequence(6,8)}"
+                community_contentText.text = item?.boardContent
             }
         }
     }

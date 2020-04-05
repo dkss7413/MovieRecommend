@@ -1,6 +1,8 @@
 package com.example.movierecommender.view.main.fragment.community
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.widget.Toast
@@ -17,6 +19,7 @@ import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.util.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.community_item.view.*
 import kotlinx.android.synthetic.main.fragment_community.view.*
 
 class CommunityFragment : Fragment() {
