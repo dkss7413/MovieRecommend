@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movierecommender.R
 import com.example.movierecommender.adapter.SearchListAdapter
 import com.example.movierecommender.model.MovieDTO
+import com.example.movierecommender.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class SearchFragment : Fragment(), SearchContract.View {
     lateinit var root: View
     lateinit var searchListAdapter: SearchListAdapter
 
-    companion object{
-        fun newInstance(): SearchFragment{
+    companion object: BaseFragment {
+        override fun newInstance(): SearchFragment{
             return SearchFragment()
         }
     }

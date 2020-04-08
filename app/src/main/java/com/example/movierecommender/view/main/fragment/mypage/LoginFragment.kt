@@ -10,10 +10,14 @@ import androidx.fragment.app.Fragment
 import com.example.movierecommender.R
 import com.example.movierecommender.network.Service
 import com.example.movierecommender.util.SaveSharedPreference
+import com.example.movierecommender.util.ShowFragment
 import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.util.showToast
+import com.example.movierecommender.view.BaseFragment
+import com.example.movierecommender.view.main.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
 class LoginFragment :Fragment(){
@@ -21,8 +25,8 @@ class LoginFragment :Fragment(){
     lateinit var root:View
     lateinit var registerFragment: RegisterFragment
 
-    companion object{
-        fun newInstance(): LoginFragment{
+    companion object: BaseFragment{
+        override fun newInstance(): LoginFragment{
             return LoginFragment()
         }
     }
@@ -47,7 +51,7 @@ class LoginFragment :Fragment(){
                     when(it.get("result").asString){
                         "true" -> {
                             SaveSharedPreference.setUser(context, it.get("userId").asString, it.get("nickname").asString)
-                            MypageFrament.newInstance().replaceFragment(activity)
+                            ShowFragment.move("login", "mypage", activity!!)
                         }
                         "false" -> context?.showToast("아이디와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT)
                     }
@@ -56,7 +60,7 @@ class LoginFragment :Fragment(){
         }
 
         root.log_registerButton.setOnClickListener {
-            registerFragment.replaceFragment(activity)
+            ShowFragment.move("login", "register", activity!!)
         }
 
         return root

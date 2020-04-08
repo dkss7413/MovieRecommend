@@ -17,14 +17,15 @@ import com.example.movierecommender.network.Service
 import com.example.movierecommender.util.SaveSharedPreference
 import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.util.showToast
+import com.example.movierecommender.view.BaseFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.community_item.view.*
 import kotlinx.android.synthetic.main.fragment_community.view.*
 
 class CommunityFragment : Fragment() {
-    companion object {
-        fun newInstance(): CommunityFragment {
+    companion object: BaseFragment {
+        override fun newInstance(): CommunityFragment {
             return CommunityFragment()
         }
     }

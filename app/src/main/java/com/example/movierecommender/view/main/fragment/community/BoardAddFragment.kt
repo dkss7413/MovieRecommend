@@ -13,6 +13,7 @@ import com.example.movierecommender.network.Service
 import com.example.movierecommender.util.SaveSharedPreference
 import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.util.showToast
+import com.example.movierecommender.view.BaseFragment
 import com.example.movierecommender.view.main.fragment.mypage.MypageFrament
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -24,8 +25,8 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class BoardAddFragment: Fragment() {
-    companion object{
-        fun newInstance(): BoardAddFragment{
+    companion object: BaseFragment{
+        override fun newInstance(): BoardAddFragment{
             return BoardAddFragment()
         }
     }

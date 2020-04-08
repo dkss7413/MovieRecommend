@@ -10,16 +10,18 @@ import androidx.fragment.app.Fragment
 import com.example.movierecommender.R
 import com.example.movierecommender.network.Service
 import com.example.movierecommender.util.SaveSharedPreference
+import com.example.movierecommender.util.ShowFragment
 import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.util.showToast
+import com.example.movierecommender.view.BaseFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register.view.*
 
 class RegisterFragment : Fragment(){
-    companion object{
-        fun newInstance(): RegisterFragment{
+    companion object: BaseFragment{
+        override fun newInstance(): RegisterFragment{
             return RegisterFragment()
         }
     }
@@ -63,7 +65,7 @@ class RegisterFragment : Fragment(){
                                 context?.showToast("회원가입 성공", Toast.LENGTH_SHORT)
 
                                 SaveSharedPreference.setUser(context, userId, nickname)
-                                MypageFrament.newInstance().replaceFragment(activity)
+                                ShowFragment.move("register", "mypage", activity!!)
                             }
                         }
 
@@ -72,7 +74,7 @@ class RegisterFragment : Fragment(){
         }
 
         root.reg_cancelButton.setOnClickListener {
-            LoginFragment.newInstance().replaceFragment(activity)
+            ShowFragment.move("register", "login", activity!!)
         }
 
         return root

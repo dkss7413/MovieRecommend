@@ -8,22 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.movierecommender.R
 import com.example.movierecommender.util.SaveSharedPreference
+import com.example.movierecommender.util.ShowFragment
 import com.example.movierecommender.util.replaceFragment
+import com.example.movierecommender.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mypage.view.*
 
 class MypageFrament:Fragment(){
-    companion object{
-        fun newInstance(): MypageFrament{
+    companion object: BaseFragment{
+        override fun newInstance(): MypageFrament{
             return MypageFrament()
         }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        if(SaveSharedPreference.getUserId(context)?.length == 0) {
-            LoginFragment.newInstance().replaceFragment(activity)
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +37,7 @@ class MypageFrament:Fragment(){
 
         root.logoutButton.setOnClickListener {
             SaveSharedPreference.clearUser(context)
-            newInstance().replaceFragment(activity)
+            ShowFragment.move("mypage", "login", activity!!)
         }
 
         return root

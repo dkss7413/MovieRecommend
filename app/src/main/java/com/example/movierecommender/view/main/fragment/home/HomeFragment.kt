@@ -9,16 +9,21 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movierecommender.R
 import com.example.movierecommender.adapter.HomeListAdapter
 import com.example.movierecommender.model.MovieItemDTO
+import com.example.movierecommender.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
 class HomeFragment : Fragment(), HomeContract.View {
     lateinit var root:View
 
-    companion object{
-        fun newInstance(): HomeFragment{
+    companion object: BaseFragment {
+        override fun newInstance(): HomeFragment{
             return HomeFragment()
         }
+    }
+
+    fun newInstance(): Fragment{
+        return HomeFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
