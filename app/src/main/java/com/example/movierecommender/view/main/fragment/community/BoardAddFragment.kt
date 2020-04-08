@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.movierecommender.R
 import com.example.movierecommender.network.Service
 import com.example.movierecommender.util.SaveSharedPreference
+import com.example.movierecommender.util.ShowFragment
 import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.util.showToast
 import com.example.movierecommender.view.BaseFragment
@@ -54,7 +55,7 @@ class BoardAddFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.menu_cancel -> {
-                CommunityFragment.newInstance().replaceFragment(activity)
+                ShowFragment.move("boardAdd", "community", activity!!)
                 return true
             }
             R.id.menu_complete -> {
@@ -76,7 +77,7 @@ class BoardAddFragment: Fragment() {
                         .subscribe({
                             if(it.get("success").asString == "true") {
                                 context?.showToast("글 생성", Toast.LENGTH_SHORT)
-                                CommunityFragment.newInstance().replaceFragment(activity)
+                                ShowFragment.move("boardAdd", "community", activity!!)
                             }
                             else
                                 context?.showToast("글 생성 실패", Toast.LENGTH_SHORT)

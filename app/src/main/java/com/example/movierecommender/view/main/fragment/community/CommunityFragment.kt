@@ -15,6 +15,7 @@ import com.example.movierecommender.adapter.CommunityListAdapter
 import com.example.movierecommender.model.BoardDTO
 import com.example.movierecommender.network.Service
 import com.example.movierecommender.util.SaveSharedPreference
+import com.example.movierecommender.util.ShowFragment
 import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.util.showToast
 import com.example.movierecommender.view.BaseFragment
@@ -68,7 +69,7 @@ class CommunityFragment : Fragment() {
         when (item.itemId) {
             R.id.menu_create -> {
                 if (SaveSharedPreference.getUserId(context)?.length != 0) {
-                    BoardAddFragment.newInstance().replaceFragment(activity)
+                    ShowFragment.show("boardAdd", activity!!)
                 } else
                     context?.showToast("로그인을 해주세요.", Toast.LENGTH_SHORT)
                 return true
