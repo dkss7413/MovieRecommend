@@ -11,7 +11,6 @@ import com.example.movierecommender.R
 import com.example.movierecommender.network.Service
 import com.example.movierecommender.util.SaveSharedPreference
 import com.example.movierecommender.util.ShowFragment
-import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.util.showToast
 import com.example.movierecommender.view.BaseFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +18,12 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register.view.*
 
-class RegisterFragment : Fragment(){
+class RegisterFragment : Fragment(), RegisterContract.View{
+    lateinit var root: View
+    var presenter = RegisterPresenter().apply {
+        view = this@RegisterFragment
+    }
+
     companion object: BaseFragment{
         override fun newInstance(): RegisterFragment{
             return RegisterFragment()
@@ -31,7 +35,7 @@ class RegisterFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_register, container, false)
+        root = inflater.inflate(R.layout.fragment_register, container, false)
 
         root.reg_registerButton.setOnClickListener {
             val userId = root.reg_idText.text.toString()
@@ -40,43 +44,41 @@ class RegisterFragment : Fragment(){
             val nickname = root.reg_nicknameText.text.toString()
 
             if(userId == "" || userPassword == "" || userPassword2 == "" || nickname == ""){
-                context?.showToast("입력 안된 사항이 있습니다.", Toast.LENGTH_SHORT)
+                showToast("입력 안된 사항이 있습니다.")
             }
             else if(userPassword != userPassword2) {
-                context?.showToast("비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT)
+                showToast("비밀번호가 일치하지 않습니다.")
                 reg_passwordText.requestFocus()
             }
             else{
-                Service.create().userRegister(userId, userPassword, nickname)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-
-                        when(it.get("result").asString){
-                            "Id error!" -> {
-                                context?.showToast("존재하는 아이디입니다.", Toast.LENGTH_SHORT)
-                                root.reg_idText.requestFocus()
-                            }
-                            "Nickname error!" -> {
-                                context?.showToast("존재하는 닉네임입니다.", Toast.LENGTH_SHORT)
-                                root.reg_nicknameText.requestFocus()
-                            }
-                            "true" -> {
-                                context?.showToast("회원가입 성공", Toast.LENGTH_SHORT)
-
-                                SaveSharedPreference.setUser(context, userId, nickname)
-                                ShowFragment.move("register", "mypage", activity!!)
-                            }
-                        }
-
-                    }, { Log.d("회원가입 오류", it.localizedMessage) })
+                presenter.registerUser(userId, userPassword, nickname)
             }
         }
 
         root.reg_cancelButton.setOnClickListener {
-            ShowFragment.move("register", "login", activity!!)
+            moveFragment("login")
         }
 
         return root
+    }
+
+    override fun showToast(text: String){
+        context?.showToast(text, Toast.LENGTH_SHORT)
+    }
+
+    override fun moveFragment(nextFragmentName: String){
+        ShowFragment.move("register", nextFragmentName, activity!!)
+    }
+
+    override fun setUser(userId: String, nickname: String){
+        SaveSharedPreference.setUser(context, userId, nickname)
+    }
+
+    override  fun focusOnIdtext(){
+        root.reg_idText.requestFocus()
+    }
+
+    override fun focusOnNicknameText(){
+        root.reg_nicknameText.requestFocus()
     }
 }

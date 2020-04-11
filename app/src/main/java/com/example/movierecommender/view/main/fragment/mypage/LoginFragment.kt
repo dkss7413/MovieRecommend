@@ -11,7 +11,6 @@ import com.example.movierecommender.R
 import com.example.movierecommender.network.Service
 import com.example.movierecommender.util.SaveSharedPreference
 import com.example.movierecommender.util.ShowFragment
-import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.util.showToast
 import com.example.movierecommender.view.BaseFragment
 import com.example.movierecommender.view.main.MainActivity
@@ -20,10 +19,12 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
-class LoginFragment :Fragment(){
+class LoginFragment :Fragment(), LoginContract.View{
 
     lateinit var root:View
-    lateinit var registerFragment: RegisterFragment
+    val presenter = LoginPresenter().apply {
+        view = this@LoginFragment
+    }
 
     companion object: BaseFragment{
         override fun newInstance(): LoginFragment{
@@ -37,32 +38,30 @@ class LoginFragment :Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_login, container, false)
-        registerFragment = RegisterFragment()
 
         root.log_loginButton.setOnClickListener {
             val userId = root.log_idText.text.toString()
             val userPassword = root.log_passwordText.text.toString()
 
-            Service.create().userLogin(userId, userPassword)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-
-                    when(it.get("result").asString){
-                        "true" -> {
-                            SaveSharedPreference.setUser(context, it.get("userId").asString, it.get("nickname").asString)
-                            ShowFragment.move("login", "mypage", activity!!)
-                        }
-                        "false" -> context?.showToast("아이디와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT)
-                    }
-
-                }, { Log.d("로그인 오류", it.localizedMessage) })
+            presenter.loginClickListner(userId, userPassword)
         }
 
         root.log_registerButton.setOnClickListener {
-            ShowFragment.move("login", "register", activity!!)
+            moveFragment("register")
         }
 
         return root
+    }
+
+    override fun moveFragment(nextFragmentName: String){
+        ShowFragment.move("login", nextFragmentName, activity!!)
+    }
+
+    override fun showToast(text: String){
+        context?.showToast(text, Toast.LENGTH_SHORT)
+    }
+
+    override fun setUser(userId: String, nickname: String){
+        SaveSharedPreference.setUser(context, userId, nickname)
     }
 }

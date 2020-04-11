@@ -22,10 +22,6 @@ class HomeFragment : Fragment(), HomeContract.View {
         }
     }
 
-    fun newInstance(): Fragment{
-        return HomeFragment()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

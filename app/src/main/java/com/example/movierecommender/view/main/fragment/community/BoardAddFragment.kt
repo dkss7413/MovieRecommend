@@ -12,7 +12,6 @@ import com.example.movierecommender.R
 import com.example.movierecommender.network.Service
 import com.example.movierecommender.util.SaveSharedPreference
 import com.example.movierecommender.util.ShowFragment
-import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.util.showToast
 import com.example.movierecommender.view.BaseFragment
 import com.example.movierecommender.view.main.fragment.mypage.MypageFrament
@@ -25,14 +24,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
-class BoardAddFragment: Fragment() {
+class BoardAddFragment: Fragment(), BoardAddContract.View {
+
+    lateinit var root: View
+
+    var presenter = BoardAddPresenter().apply {
+        view = this@BoardAddFragment
+    }
+
     companion object: BaseFragment{
         override fun newInstance(): BoardAddFragment{
             return BoardAddFragment()
         }
     }
-
-    lateinit var root: View
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,38 +59,40 @@ class BoardAddFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.menu_cancel -> {
-                ShowFragment.move("boardAdd", "community", activity!!)
+                moveFragment("community")
                 return true
             }
             R.id.menu_complete -> {
                 if(root.titleText.text.toString() == "" || root.board_add_contentText.text.toString() == ""){
-                    context?.showToast("입력 안된 사항이 있습니다.", Toast.LENGTH_SHORT)
+                    showToast("입력 안된 사항이 있습니다.")
                 }
                 else {
-                    val map = HashMap<String, String?>()
-                    map["userId"] = SaveSharedPreference.getUserId(context)
-                    map["nickname"] = SaveSharedPreference.getNickname(context)
-                    map["boardTitle"] = root.titleText.text.toString()
-                    map["boardData"] =
-                        SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA).format(Date()).toString()
-                    map["boardContent"] = root.board_add_contentText.text.toString()
-
-                    Service.create().boardRegister(map)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            if(it.get("success").asString == "true") {
-                                context?.showToast("글 생성", Toast.LENGTH_SHORT)
-                                ShowFragment.move("boardAdd", "community", activity!!)
-                            }
-                            else
-                                context?.showToast("글 생성 실패", Toast.LENGTH_SHORT)
-                        }, { Log.d("글 생성 오류", it.localizedMessage) })
+                    presenter.addBoard(getBoardData())
 
                     return true
                 }
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun showToast(text: String){
+        context?.showToast(text, Toast.LENGTH_SHORT)
+    }
+
+    override fun moveFragment(nextFragmentName: String){
+        ShowFragment.move("boardAdd", nextFragmentName, activity!!)
+    }
+
+    fun getBoardData(): HashMap<String, String?>{
+        val map = HashMap<String, String?>()
+        map["userId"] = SaveSharedPreference.getUserId(context)
+        map["nickname"] = SaveSharedPreference.getNickname(context)
+        map["boardTitle"] = root.titleText.text.toString()
+        map["boardData"] =
+            SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA).format(Date()).toString()
+        map["boardContent"] = root.board_add_contentText.text.toString()
+
+        return map
     }
 }

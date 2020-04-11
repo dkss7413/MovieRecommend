@@ -26,7 +26,7 @@ interface BoxOfficeAPI {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             val client = OkHttpClient.Builder()
-//                .addInterceptor(httpLoggingInterceptor)
+                .addInterceptor(httpLoggingInterceptor)
                 .build()
 
             return Retrofit.Builder()

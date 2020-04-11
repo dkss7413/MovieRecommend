@@ -15,36 +15,40 @@ import kotlin.collections.HashMap
 
 class HomePresenter : HomeContract.Presenter {
     lateinit var view: HomeContract.View
+    lateinit var movieListDTO: HashMap<Int, MovieItemDTO>
 
     override fun loadMovieRanking() {
-        val movieListDTO: HashMap<Int, MovieItemDTO> = HashMap()
+        movieListDTO = HashMap()
         var num = -1
 
         val dispose =
             BoxOfficeAPI.create().getBoxOffice(BuildConfig.Box_Office_Key, getCurrentTime() - 1)
-                .map { it.getSeveralMovieName() }
+                .map { it.extractMovieName() }
                 .flatMap({ Observable.range(0, 9) },
                     { severalMovieName, num -> severalMovieName.get(num) })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     num++
-                    val tempNum = num
 
-                    NaverAPI.create().getMovie(it, 1)
-                        .map { it.items.get(0) }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            movieListDTO[tempNum] = it
-                            if (movieListDTO.size == 9) {
-                                view.setHomeListAdapter(movieListDTO)
-                            }
-                        }, {})
+                    getMoviePoster(it, num)
                 }, {}, {})
     }
 
-    fun JsonObject.getSeveralMovieName(): ArrayList<String> {
+    fun getMoviePoster(title: String, num: Int){
+        NaverAPI.create().getMovie(title, 1)
+            .map { it.items.get(0) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                movieListDTO[num] = it
+                if (movieListDTO.size == 9) {
+                    view.setHomeListAdapter(movieListDTO)
+                }
+            }, {})
+    }
+
+    fun JsonObject.extractMovieName(): ArrayList<String> {
         val arrayList = ArrayList<String>()
 
         for (i in 0..8)

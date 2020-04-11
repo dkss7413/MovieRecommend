@@ -37,7 +37,7 @@ interface NaverAPI {
             }
 
             val client = OkHttpClient.Builder()
-//                .addInterceptor(httpLoggingInterceptor)
+                .addInterceptor(httpLoggingInterceptor)
                 .addInterceptor(headerInterceptor)
                 .build()
 

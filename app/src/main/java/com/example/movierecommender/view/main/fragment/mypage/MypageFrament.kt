@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.example.movierecommender.R
 import com.example.movierecommender.util.SaveSharedPreference
 import com.example.movierecommender.util.ShowFragment
-import com.example.movierecommender.util.replaceFragment
 import com.example.movierecommender.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mypage.view.*
 
@@ -18,10 +17,6 @@ class MypageFrament:Fragment(){
         override fun newInstance(): MypageFrament{
             return MypageFrament()
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
