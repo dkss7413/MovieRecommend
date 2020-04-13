@@ -1,23 +1,15 @@
 package com.example.movierecommender.view.main.fragment.community
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.movierecommender.R
-import com.example.movierecommender.network.Service
 import com.example.movierecommender.util.SaveSharedPreference
 import com.example.movierecommender.util.ShowFragment
 import com.example.movierecommender.util.showToast
 import com.example.movierecommender.view.BaseFragment
-import com.example.movierecommender.view.main.fragment.mypage.MypageFrament
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.community_item.view.*
 import kotlinx.android.synthetic.main.fragment_board_add.view.*
 import kotlinx.android.synthetic.main.fragment_board_add.view.titleText
 import java.text.SimpleDateFormat

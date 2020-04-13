@@ -59,7 +59,7 @@ class CommunityFragment : Fragment(), CommunityContract.View {
         when (item.itemId) {
             R.id.menu_create -> {
                 if (SaveSharedPreference.getUserId(context)?.length != 0) {
-                    ShowFragment.show("boardAdd", activity!!)
+                    ShowFragment.move("community", "boardAdd", activity!!)
                 } else
                     context?.showToast("로그인을 해주세요.", Toast.LENGTH_SHORT)
                 return true
