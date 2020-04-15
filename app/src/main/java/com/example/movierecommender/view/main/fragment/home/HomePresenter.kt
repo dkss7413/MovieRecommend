@@ -15,10 +15,10 @@ import kotlin.collections.HashMap
 
 class HomePresenter : HomeContract.Presenter {
     lateinit var view: HomeContract.View
-    lateinit var movieListDTO: HashMap<Int, MovieItemDTO>
+    lateinit var movieMap: HashMap<Int, MovieItemDTO>
 
     override fun loadMovieRanking() {
-        movieListDTO = HashMap()
+        movieMap = HashMap()
         var num = -1
 
         val dispose =
@@ -41,9 +41,9 @@ class HomePresenter : HomeContract.Presenter {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                movieListDTO[num] = it
-                if (movieListDTO.size == 9) {
-                    view.setHomeListAdapter(movieListDTO)
+                movieMap[num] = it
+                if (movieMap.size == 9) {
+                    view.setHomeListAdapter(movieMap)
                 }
             }, {})
     }
